@@ -1,0 +1,10 @@
+Process 11302 attached - interrupt to quit
+Process 11302 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 99.97    6.008565     3004283         2           semget
+  0.01    0.000846         282         3           msgget
+  0.01    0.000511         511         1           getuid32
+  0.01    0.000497         497         1           getpid
+------ ----------- ----------- --------- --------- ----------------
+100.00    6.010419                     7           total

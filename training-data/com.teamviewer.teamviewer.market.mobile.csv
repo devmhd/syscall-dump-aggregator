@@ -1,0 +1,5 @@
+attach: ptrace(PTRACE_ATTACH, ...): No such process
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000                     0           total
