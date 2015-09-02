@@ -3,10 +3,14 @@ package com.devmhd;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 	
@@ -68,10 +72,10 @@ public class Main {
 						
 						
 						if(syscallFrequency.containsKey(syscallname)){
-							syscallFrequency.put(syscallname, syscallFrequency.get(syscallname)+ 1 );
+							syscallFrequency.put(syscallname, syscallFrequency.get(syscallname)+ n_calls );
 						} else {
 							
-							syscallFrequency.put(syscallname, new Integer(1));
+							syscallFrequency.put(syscallname, new Integer(n_calls));
 													
 						}
 						
@@ -109,6 +113,34 @@ public class Main {
 //			
 //			
 //			
+		}
+		
+		
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("output.csv", "UTF-8");
+			
+			
+			
+			
+			
+			
+			for(Map.Entry<String, Integer> entry : syscallFrequency.entrySet())
+			{
+				String word = entry.getKey() + "," + entry.getValue();
+				
+				writer.println(word);
+			}
+			
+			writer.close();
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
