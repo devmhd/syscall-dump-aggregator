@@ -1,0 +1,15 @@
+Process 7676 attached - interrupt to quit
+Process 7676 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 99.66    1.213599      134844         9           semget
+  0.15    0.001850        1850         1           write
+  0.13    0.001598        1598         1           nanosleep
+  0.02    0.000301         151         2           mprotect
+  0.01    0.000163          15        11           msgget
+  0.01    0.000095          32         3           read
+  0.00    0.000058          10         6           getpid
+  0.00    0.000054           9         6           getuid32
+  0.00    0.000018          18         1           sched_yield
+------ ----------- ----------- --------- --------- ----------------
+100.00    1.217736                    40           total

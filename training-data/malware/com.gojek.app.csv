@@ -1,0 +1,10 @@
+Process 9417 attached - interrupt to quit
+Process 9417 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 99.98    0.417589      208795         2           semget
+  0.01    0.000041          10         4           msgget
+  0.00    0.000019          19         1           getpid
+  0.00    0.000005           5         1           getuid32
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.417654                     8           total
