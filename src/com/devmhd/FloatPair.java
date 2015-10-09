@@ -12,7 +12,6 @@ public class FloatPair {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "" + f1 + "," + f2;
 	}
 	

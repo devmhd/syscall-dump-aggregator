@@ -36,7 +36,6 @@ public class Graphable {
 		writer.close();
 		
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

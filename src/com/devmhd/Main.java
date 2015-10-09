@@ -44,7 +44,6 @@ public class Main {
 		String syscallname;
 		Integer n_calls;
 
-
 		while ((line = reader.readLine()) != null)   {
 
 			if(line.isEmpty()) continue;
@@ -63,8 +62,7 @@ public class Main {
 
 				map.put(syscallname, n_calls);
 
-				count++;	
-
+				count++;
 			}
 
 		}
@@ -78,7 +76,6 @@ public class Main {
 	}
 
 	public static HashMap<String, Float> normalize(HashMap<String, Integer> map, int total){
-
 
 		HashMap<String, Float> newMap = new HashMap<String, Float>();
 
@@ -95,12 +92,9 @@ public class Main {
 		HashMap<String,Integer> syscallFrequency = new HashMap<String,Integer>(), singleAppFreqs;
 
 		int n_apps = 0;
-
 		for(File dumpFile : folder.listFiles()){
 
 			n_apps++;
-
-//			System.out.println(dumpFile.getName());
 
 			try {
 
@@ -111,9 +105,7 @@ public class Main {
 					if(syscallFrequency.containsKey(entry.getKey())){
 						syscallFrequency.put(entry.getKey(), syscallFrequency.get(entry.getKey())+ 1 );
 					} else {
-
 						syscallFrequency.put(entry.getKey(), new Integer(1));
-
 					}
 				}
 
@@ -126,19 +118,15 @@ public class Main {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(outputFileName, "UTF-8");
-
-
 			writer.println("" + n_apps);
 
 			for(Map.Entry<String, Integer> entry : syscallFrequency.entrySet())
 			{
 				String word = entry.getKey() + "," + entry.getValue();
-
 				writer.println(word);
 			}
 
 			writer.close();
-
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -155,14 +143,9 @@ public class Main {
 
 		for(Entry<String, Float> entry : goodnessMap.entrySet()){
 
-			goodnessRatings.put(entry.getKey(), entry.getValue() - ((badnessMap.get(entry.getKey()) == null)?0:(badnessMap.get(entry.getKey())))      );
-
+			goodnessRatings.put(entry.getKey(), entry.getValue() - ((badnessMap.get(entry.getKey()) == null)?0:(badnessMap.get(entry.getKey()))));
 		}
-
-
 	}
-
-
 
 	public static float getGoodnessRating(String syscall){
 
@@ -201,29 +184,22 @@ public class Main {
 			if(readingNow){
 
 				record = removeEmptyStrings(line.split(" "));
-
 				syscallname = record.get(record.size()-1);
 				n_calls = Integer.parseInt(record.get(3));
-
 				sum += (getGoodnessRating(syscallname) * (float)n_calls);
-
 				count++;	
-
 			}
 
 		}
 		
 		if(sum > maxgr) maxgr = sum;
 		if(sum < mingr) mingr = sum;
-
 		reader.close();
-
 		if(count==0) System.out.println("No syscall in classification: " + traceFile.getName());
 
 		return sum < threshold;
 
 	}
-
 
 	public static void runWithThreshold(float threshold){
 		
@@ -236,38 +212,28 @@ public class Main {
 			calculateGoodnessRatings(goodnessMap, badnessMap);
 
 
-
-
 			//validation
-
 			float tp = 0, tn = 0, fp = 0, fn = 0; 
 
 			File malValidationFolder = new File("validation-data/malware");
 			File nmalValidationFolder = new File("validation-data/non-malware");
 
 			for(File malwareTrace: malValidationFolder.listFiles()){
+				
 
 				if(isMalware(malwareTrace, threshold)) tp++;
-				else{
-					
-//					System.out.println("del " + malwareTrace.getName());
-					fn++;
-				}
-
+				else fn++;
+				
 			}
 
 			for(File nmalwareTrace: nmalValidationFolder.listFiles()){
 
-				if(isMalware(nmalwareTrace, threshold)) {
-					fp++;
-//					System.out.println("del " + nmalwareTrace.getName());
-				}
-				else {
-					tn++;
+				if(isMalware(nmalwareTrace, threshold)) fp++;
+				else tn++;
 					
-				}
-
 			}
+			
+//			System.out.println( "tp " + tp*100/69 + " tn " + tn*100/69 + " fp " + fp*100/69 + " fn " + fn*100/69) ;
 
 			thVsACC.add(new FloatPair(threshold, (tp+tn)/(tp+tn+fp+fn)));
 			thVsTPR.add(new FloatPair(threshold, tp/(tp+fn)));
@@ -292,8 +258,7 @@ public class Main {
 		thVsPPV = new Graphable();
 		thVsFmeasure = new Graphable();
 		
-//		runWithThreshold((float) 745);
-
+//		runWithThreshold((float) 320);
 
 		for(float threshold = -200; threshold <= 1500; threshold +=10){
 			
@@ -306,14 +271,7 @@ public class Main {
 		thVsPPV.outputCsv("thVsPPV.csv");
 		thVsFmeasure.outputCsv("thVsFmeasure.csv");
 		
-		
 		System.out.println("" + mingr + "   " + maxgr);
-
-
-
-
-	
-
 
 	}
 
